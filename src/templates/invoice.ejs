@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+        color: #1c1c1c;
+      }
+      .invoice table{
+        border-collapse: collapse;
+      }
+      .invoice th {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      .w-400 {
+        width: 256px;
+      }
+
+      .w-350 {
+        width: 224px;
+      }
+
+      .w-100 {
+        width: 64px;
+      }
+
+      .w-150 {
+        width: 36px;
+      }
+
+      .w-50 {
+        width: 32px;
+      }
+      .border {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      .header td {
+        width: 320px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header" style="margin-top: 24px">
+      <table align="center">
+        <tr>
+          <td>〒 <%= invoice.post_code ? post_code : '' %></td>
+          <td style="border-bottom: 2px dashed black; font-size: 24px;" > <b>請　　求　　書</b> </td>
+        </tr>
+        <tr>
+          <td><%= invoice.name %> 様</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= invoice.addressRow1 %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= invoice.addressRow2 %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= invoice.addressRow3 %></td>
+        </tr>
+        <tr>
+          <td>対象期間</td>
+          <td><%= invoice.addressRow4 %></td>
+        </tr>
+        <tr>
+          <td><%= invoice.range %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>平素は格別のお引き立てを賜り厚く御礼申し上げます。</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>下記の通りご請求申し上げます。</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b> <u>ご請求金額：￥ <%= invoice.total_price %></u> </b></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="invoice">
+      <table align="center" width="640px">
+        <tr>
+          <th class="w-400">項目</th>
+          <th class="w-100">単価</th>
+          <th class="w-50">数量</th>
+          <th class="w-100">金額（税抜）</th>
+          <th class="w-350">備考</th>
+        </tr>
+        <% for(let q= 0;q< invoice.item.length; q++) { %>
+        <tr>
+          <td class="w-400 border"><%= invoice.item[q].delivery_deadline_str %></td>
+          <td class="w-100 border"><%= invoice.item[q].price %></td>
+          <td class="w-50 border"><%= invoice.item[q].quantity %></td>
+          <td class="w-100 border"><%= invoice.item[q].total_price %></td>
+          <td class="w-350 border"><%= q== 0 ? invoice.note : '' %></td>
+        </tr>
+        <% } %>
+        <% for(let q= 0;q< 10 - invoice.item.length; q++) { %>
+          <tr style="height: 24px;">
+            <td class="w-400 border"></td>
+            <td class="w-100 border"></td>
+            <td class="w-50 border"></td>
+            <td class="w-100 border"></td>
+            <td class="w-350 border"></td>
+          </tr>
+          <% } %>
+        <tr>
+          <td class="w-400">【振込先】</td>
+          <td class="w-100"></td>
+          <td class="w-150 border" colspan="2">小計</td>
+          <td class="w-350 border">￥<%= invoice.total_price %></td>
+        </tr>
+        <tr>
+          <td class="w-400">金融機関名：<%= invoice.bank %></td>
+          <td class="w-100"></td>
+          <td class="w-150 border" colspan="2">消費税</td>
+          <td class="w-350 border">￥<%= invoice.tax %></td>
+        </tr>
+        <tr>
+          <td class="w-400">名義人　　： <%= invoice.account %>  </td>
+          <td class="w-100"></td>
+          <td class="w-150 border" colspan="2"><b>合計金額</b></td>
+          <td class="w-350 border"><b>￥<%= invoice.total_price_tax %></b></td>
+        </tr>
+        <tr>
+          <td class="w-400">※振込手数料はご負担願います。  </td>
+          <td class="w-100"></td>
+          <td class="w-150 " colspan="2"></td>
+          <td class="w-350 "></td>
+        </tr>
+
+      </table>
+    </div>
+  </body>
+</html>

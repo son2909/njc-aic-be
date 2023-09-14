@@ -1,0 +1,109 @@
+service: aic-njc-system
+
+plugins:
+  - serverless-jetpack
+  - serverless-offline
+  - serverless-dotenv-plugin
+  #  - serverless-plugin-typescript
+  - serverless-prune-plugin
+  - serverless-deployment-bucket
+
+package:
+  individually: true
+  include:
+    - 'src/**'
+    - '!**/node_modules/aws-sdk/**' # Faster way to exclude
+    - 'package.json'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-1
+  memorySize: 256
+  timeout: 30
+  logRetentionInDays: 180
+  environment:
+    PROCCESS_IMPORT_UKE_FUNCTION_NAME: ${self:service}-${self:provider.stage}-import-uke-proccess
+    PROCCESS_EXPORT_ZIP_FUNCTION_NAME: ${self:service}-${self:provider.stage}-export-zip-proccess
+
+  deploymentBucket:
+    name: system-aic-njc
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+        # - s3:PutObjectAcl
+      Resource:
+        - arn:aws:s3:::system-aic-njc/*
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource:
+        - arn:aws:lambda:${self:provider.region}:*:function:${self:service}-${self:provider.stage}-import-uke-proccess
+  #   - Effect: Allow
+  #     Action:
+  #       - "execute-api:ManageConnections"
+  #     Resource:
+  #       - "arn:aws:execute-api:*:*:**/@connections/*"
+
+functions:
+  import-uke-proccess:
+    name: ${self:service}-${self:provider.stage}-import-uke-proccess
+    handler: dist/src/import-uke-proccess.handler
+    timeout: 900
+    memorySize: 3008
+  export-zip-proccess:
+    name: ${self:service}-${self:provider.stage}-export-zip-proccess
+    handler: dist/src/export-zip-proccess.handler
+    timeout: 900
+    memorySize: 3008
+  api:
+    handler: dist/src/lambda.handler
+    # vpc:
+    #   securityGroupIds:
+    #     - sg-0377f92416d52d2bd
+    #   subnetIds:
+    #     - subnet-07300e071431d2235
+    timeout: 30
+    memorySize: 1024
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
+  websocket:
+    timeout: 900
+    handler: dist/src/socket/index.handler
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $default
+      - websocket:
+          route: broadcast
+      - websocket:
+          route: ping
+      - websocket:
+          route: friend
+      - websocket:
+          route: group
+      - websocket:
+          route: notification
+
+custom:
+  currentStage: ${self:provider.stage}
+
+  prune:
+    automatic: true
+    number: 3
+  serverless-offline:
+    port: 4000
+    host: 127.0.0.1
+    httpPort: 3001
+    websocketPort: 3333
+    webSocketIdleTimeout: 6000
+  # optimize:
+  #   external: ['swagger-ui-dist']

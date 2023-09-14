@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      margin: 0px;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #1c1c1c;
+    }
+
+    .text-danger {
+      color: #ea5852 !important;
+    }
+
+    .bg-error {
+      background-color: #f8f8f8 !important;
+    }
+
+    .text-cus {
+      font-size: 13px;
+      line-height: 22px;
+      font-weight: 500;
+    }
+
+    /* checkbox */
+    .container-checkbox {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 0px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container-checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: -11px;
+      left: 11px;
+      height: 20px;
+      width: 20px;
+      background-color: #8eabc9 !important;
+      border: 1px solid #fff;
+      border-radius: 3px;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: '';
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container-checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container-checkbox .checkmark:after {
+      left: 5px;
+      top: 0px;
+      width: 8px;
+      height: 14px;
+      border: solid #fff;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .input-block .select {
+      width: 100%;
+    }
+
+    .group-checkbox {
+      display: flex;
+      justify-content: flex-start;
+      height: 40px;
+    }
+
+    .checkbox-block {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 0px;
+    }
+
+    .container-checkbox {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 0px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* checkbox */
+
+    .pd-r-10 {
+      padding-right: 10px;
+    }
+
+    .pd-l-10 {
+      padding-left: 10px;
+    }
+
+    .mg-t-10 {
+      margin-top: 15px;
+    }
+
+    .page {
+      background-color: #dbdbdb !important;
+      width: 100%;
+      height: 100%;
+      padding: 38px;
+    }
+
+    .content {
+      background-color: #fff !important;
+      border-radius: 15px;
+    }
+
+    /* tab-error */
+    .tab-error {
+      padding: 40px;
+    }
+
+    .error-content {
+      position: relative;
+    }
+
+    .error-content .nav-tabs {
+      border-bottom: 0px;
+    }
+
+    .error-content .nav-tabs a {
+      border: none !important;
+      border-radius: 0px !important;
+      height: 30px;
+      padding: 0px 28px 0px 21px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #1c1c1c !important;
+    }
+    .outcome_category_name {
+      padding: 2px 3px;
+      font-size: 12px !important;
+      color: white !important;
+      background-color: #707070 !important;
+    }
+
+    .error-content .nav-tabs li:first-child a {
+      clip-path: polygon(0 0, 85% 0%, 100% 100%, 0% 100%);
+    }
+
+    .error-content .nav-tabs > li.active > a {
+      font-weight: 600;
+      background-color: #e5e5e5 !important;
+    }
+
+    .error-content .nav-tabs > li > a {
+      margin-right: 0px;
+    }
+
+    .tab-content {
+      min-height: 150px;
+      padding: 30px;
+      border: 1px solid #ddd;
+    }
+
+    .tab-content p {
+      margin: 0 0 7px;
+    }
+
+    .tab-edit {
+      position: absolute;
+      top: 48px;
+      right: 16px;
+    }
+
+    .icon-edit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 46px;
+      height: 46px;
+      margin: auto;
+      background-color: #f8f8f8 !important;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .icon-edit svg {
+      width: 18px;
+    }
+
+    /* tab-error */
+
+    /* area-error */
+    .area-error {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      padding: 0px 40px 40px;
+    }
+
+    .header_column {
+      padding: 5px 20px;
+      background-color: #707070 !important;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      height: 35px;
+    }
+
+    .button_disable {
+      text-align: center;
+      margin: 23px 0px;
+    }
+
+    .button_disable .btn {
+      border-radius: 20px;
+      background-color: #ccc !important;
+      height: 21px;
+      padding: 0px 8px;
+      font-size: 12px;
+      line-height: 21px;
+      min-width: 76px;
+    }
+
+    .disease_title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 20px;
+      margin: 5px 0px;
+    }
+
+    .red_circle {
+      background-color: #ea5852 !important;
+      padding: 2px 3px;
+      border-radius: 10px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .disease_title span {
+      font-size: 14px;
+    }
+
+    .area_wrap {
+      margin: 0px 20px;
+      background-color: #fff !important;
+      padding: 20px;
+    }
+
+    .popup_area {
+      position: relative;
+      padding: 20px 43px;
+      background-color: #8eabc9 !important;
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .popup_area::after {
+      position: absolute;
+      content: '';
+      top: -5px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background-color: #8eabc9 !important;
+      transform: rotate(45deg);
+    }
+
+    .mw-20 {
+      min-width: 20px !important;
+    }
+
+    .popup_area span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin: 2px 0px;
+    }
+
+    .icon-svg {
+      position: absolute;
+      left: 8px;
+      top: 2px;
+    }
+
+    .icon-svg svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .icon-svg svg path {
+      fill: #fff;
+    }
+
+    .error-col {
+      width: 33.33%;
+    }
+
+    /* summary_column */
+    .summary_column {
+      margin: 0px 5px;
+    }
+
+    .wrap_summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0px 20px;
+    }
+
+    .summary_column .header_column {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .content_summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    span.heading {
+      width: calc(100% - 80px);
+      border-right: 1px solid #ccc;
+      padding-right: 15px;
+    }
+
+    span.count {
+      min-width: 67px;
+      text-align: end;
+    }
+
+    span.heading.txt-cus {
+      font-size: 14px;
+      line-height: 23px;
+    }
+
+    span.sub_heading {
+      background-color: #fff !important;
+      padding: 4px 6px;
+    }
+
+    /* summary_column */
+
+    /* description_error */
+    .description_error .area_wrap {
+      margin: 20px;
+      padding: 0px;
+      background-color: unset !important;
+    }
+
+    /* description_error */
+
+    /* block table */
+
+    .table-block {
+      padding: 10px 20px;
+      background-color: #efefef;
+      border-radius: 15px 15px 0px 0px;
+    }
+
+    .line_1,
+    .line_2,
+    .line_3 {
+      border-top: 1px dotted;
+      padding: 5px 0px;
+    }
+
+    .line_3 {
+      border-bottom: 1px dotted;
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .line label {
+      margin-right: 30px;
+      margin-bottom: 0px;
+      line-height: 26px;
+    }
+
+    .line .right {
+      margin-left: 150px;
+    }
+
+    .line label,
+    .line span {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* block table */
+
+    .table-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .table-wrap .table-item {
+      width: 50%;
+    }
+
+    .table {
+      margin-top: 20px;
+    }
+
+    .table-left {
+      margin-right: 20px;
+    }
+
+    .table-right {
+      margin-left: 20px;
+    }
+
+    .rowspan {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .rowspan label {
+      background-color: #707070 !important;
+      min-width: 100px;
+      max-width: 100px;
+      text-align: center;
+      color: #fff !important;
+      font-weight: 500;
+      margin-bottom: 3px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rowspan span {
+      padding-left: 15px;
+      background-color: #fff !important;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+    }
+
+    .w-55 {
+      width: 55%;
+    }
+
+    .w-45 {
+      width: 45%;
+    }
+
+    .table th {
+      background-color: #707070 !important;
+      max-width: 100px;
+      text-align: center;
+      color: #fff !important;
+    }
+
+    .table > tbody > tr > td,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > td,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > thead > tr > th {
+      padding: 8px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 3px solid #efefef !important;
+      border-right: 3px solid #efefef !important;
+    }
+
+    .table > thead > tr > th {
+      border-top: 0px solid #efefef !important;
+      font-weight: 500 !important;
+    }
+
+    .table > tbody > tr > th {
+      font-weight: 500 !important;
+    }
+
+    .table > tbody > tr > td {
+      background-color: #fff !important;
+      text-align: center;
+    }
+
+    .table > thead > tr > .bd-r-0 {
+      border-right: 0px !important;
+    }
+
+    .table > tbody > tr > .bd-r-0 {
+      border-right: 0px !important;
+    }
+
+    .form-group {
+      width: 100%;
+      text-align: end;
+    }
+
+    .form-custom {
+      margin-bottom: 10px;
+    }
+
+    .form-custom input {
+      height: 30px;
+      min-width: 150px;
+      background-color: #fff !important;
+      border: 0px;
+    }
+
+    .table-block .header {
+      padding: 0px 20px;
+    }
+
+    .table-block .header .form-group {
+      display: flex;
+      justify-content: end;
+      align-items: flex-start;
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+
+    .table-block .header .form-group input {
+      padding: 0px 10px;
+      max-width: 150px;
+      margin-right: 40px;
+      font-size: 12px;
+    }
+
+    .table-block .header .form-group label {
+      margin-right: 10px;
+    }
+
+    .table-block .form-group input {
+      border: 1px solid #e5e5e5;
+    }
+  </style>
+
+  <body>
+    <% for(let q= 0;q< receipt_details.length; q++) { %>
+    <div class="page">
+      <div class="content">
+        <div class="table-block">
+          <div class="header">
+            <div class="form-group">
+              <div class="form-custom">
+                <label>返却先</label>
+                <input
+                  value="<%= receipt_details[q] ? receipt_details[q].return_destination : '' %>"
+                />
+              </div>
+              <div class="form-custom">
+                <label>ステータス</label>
+                <input
+                  value="<%= receipt_details[q] ? receipt_details[q].status_check_flag : '' %>"
+                />
+                <input value="縦計欄表示" />
+              </div>
+              <div class="tab-document">
+                <div class="icon-edit">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22.021"
+                    height="25.167"
+                    viewBox="12 10 22.021 25.167"
+                  >
+                    <path
+                      d="M12 10v25.167h22.02V22.583H21.438V10H12Zm12.583 0v9.438h9.438L24.583 10Zm-9.437 6.292h3.146v3.146h-3.146v-3.146Zm0 6.291h3.146v3.146h-3.146v-3.146Zm0 6.292h12.583v3.146H15.146v-3.146Z"
+                      fill="#ffa69f"
+                      fill-rule="evenodd"
+                      data-name="Icon open-document"
+                    />
+                  </svg>
+                </div>
+                <span style="font-size: 10px; font-weight: 600">メモあり</span>
+              </div>
+            </div>
+          </div>
+          <div class="table-block table-wrap">
+            <div class="table-left table-item">
+              <div class="heading">
+                <div class="line_1 line">
+                  <div class="left line">
+                    <label>患者ID</label>
+                    <span
+                      ><%= receipt_details[q].re.mrint ?
+                      receipt_details[q].re.mrint : '' %></span
+                    >
+                  </div>
+                  <div class="right line">
+                    <label>生年月</label>
+                    <span
+                      ><%= receipt_details[q].re.dateOfBirth ?
+                      receipt_details[q].re.dateOfBirth : '' %></span
+                    >
+                  </div>
+                </div>
+                <div class="line_2 line">
+                  <label>診療月</label>
+                  <span
+                    ><%= receipt_details[q].re.medical_treatment_month ?
+                    receipt_details[q].re.medical_treatment_month : ''
+                    %>　外来</span
+                  >
+                </div>
+                <div class="line_3 line">
+                  <label>レセプト種別コード</label>
+                  <span
+                    ><%= receipt_details[q].re.receipt_type ?
+                    receipt_details[q].re.receipt_type : '' %></span
+                  >
+                </div>
+              </div>
+              <div class="table">
+                <div class="rowspan">
+                  <div class="rowspan w-55">
+                    <label>医療機関</label>
+                    <span
+                      ><%= receipt_details[q].ir_medical_institution_code ?
+                      receipt_details[q].ir_medical_institution_code : ''
+                      %>　<%= receipt_details[q].re.name ?
+                      receipt_details[q].re.name : '' %></span
+                    >
+                  </div>
+                  <div class="rowspan w-45">
+                    <label>電話番号</label>
+                    <span
+                      ><%= receipt_details[q].ir_telephone_number ?
+                      receipt_details[q].ir_telephone_number : '' %></span
+                    >
+                  </div>
+                </div>
+                <div class="rowspan">
+                  <div class="rowspan w-55">
+                    <label>レセプト番号</label>
+                    <span
+                      ><%= receipt_details[q].re.receipt_int ?
+                      receipt_details[q].re.receipt_int : '' %></span
+                    >
+                  </div>
+                  <div class="rowspan w-45">
+                    <label>負担者種別</label>
+                    <span
+                      ><%= receipt_details[q].payerType ?
+                      receipt_details[q].payerType : '' %></span
+                    >
+                  </div>
+                </div>
+                <div class="rowspan">
+                  <div class="rowspan w-55">
+                    <label>診療科</label>
+                    <span
+                      ><%= receipt_details[q].re.department_name_1 ?
+                      receipt_details[q].re.department_name_1 : '' %></span
+                    >
+                  </div>
+                  <div class="rowspan w-45">
+                    <label>受診日</label>
+                    <span
+                      ><%= receipt_details[q].calculateDays ?
+                      receipt_details[q].calculateDays : '' %></span
+                    >
+                  </div>
+                </div>
+                <div class="rowspan">
+                  <div class="rowspan w-55">
+                    <label>医師</label>
+                    <span
+                      ><%= receipt_details[q].doctor_id ?
+                      receipt_details[q].doctor_id : '' %></span
+                    >
+                  </div>
+                  <div class="rowspan w-45">
+                    <label>臓器提供者 レセプト</label>
+                    <span> </span>
+                  </div>
+                </div>
+                <div class="rowspan">
+                  <label>給付割合</label>
+                  <span
+                    ><%= receipt_details[q].re.benefit_ratio ?
+                    receipt_details[q].re.benefit_ratio : '' %></span
+                  >
+                </div>
+                <div class="rowspan" style="margin: 0px">
+                  <label>特記事項</label>
+                  <span
+                    ><%= receipt_details[q].re.receiptsn_content ?
+                    receipt_details[q].re.receiptsn_content : '' %></span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="table-right table-item">
+              <div class="form-group">
+                <div class="form-custom">
+                  <label>アカウントID</label>
+                  <input
+                    value="<%= receipt_details[q].account_id ?
+                  receipt_details[q].account_id : '' %>"
+                  />
+                </div>
+                <div class="form-custom">
+                  <label>2次アカウントID</label>
+                  <input
+                    value="<%= receipt_details[q].account_id2 ?
+                  receipt_details[q].account_id2 : '' %>"
+                  />
+                </div>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      style="
+                        background-color: unset !important;
+                        border: 0px !important;
+                      "
+                    ></th>
+                    <th scope="col">負担者法別</th>
+                    <th scope="col">受給者番号</th>
+                    <th scope="col">実日数</th>
+                    <th scope="col">点数</th>
+                    <th scope="col">職務上の理由</th>
+                    <th class="bd-r-0" scope="col">負担金額</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(let i =0;i<(receipt_details[q].dataTable.length );i++)
+                  { %>
+                  <tr>
+                    <th scope="row">
+                      <%= receipt_details[q].dataTable[i].title ?
+                      receipt_details[q].dataTable[i].title : '' %>
+                    </th>
+                    <td>
+                      <%= receipt_details[q].dataTable[i].lawOfBurden ?
+                      receipt_details[q].dataTable[i].lawOfBurden : '' %>
+                    </td>
+                    <td>
+                      <%= receipt_details[q].dataTable[i].beneficiaryNumber ?
+                      receipt_details[q].dataTable[i].beneficiaryNumber : '' %>
+                    </td>
+                    <td>
+                      <%= receipt_details[q].dataTable[i].numberOfDays ?
+                      receipt_details[q].dataTable[i].numberOfDays : '' %>
+                    </td>
+                    <td>
+                      <%= receipt_details[q].dataTable[i].points ?
+                      receipt_details[q].dataTable[i].points : '' %>
+                    </td>
+                    <td>
+                      <%= receipt_details[q].dataTable[i].professionalReasons ?
+                      receipt_details[q].dataTable[i].professionalReasons : ''
+                      %>
+                    </td>
+                    <td class="bd-r-0">
+                      <%= receipt_details[q].dataTable[i].burdenAmount ?
+                      receipt_details[q].dataTable[i].burdenAmount : '' %>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="error-block">
+          <div class="tab-error">
+            <div class="error-content">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a data-toggle="tab" href="#home1">エラー</a>
+                </li>
+                <li>
+                  <a data-toggle="tab" href="#home2"
+                    >※エラーを編集する場合は該当のエラー文章をクリックしてください</a
+                  >
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div id="home1" class="tab-pane fade in active">
+                  <% for(let j =0;j<(receipt_details[q].dataError1_20.length
+                  );j++) { %>
+                  <p class="text-danger">
+                    ◆ <%= receipt_details[q].dataError1_20[j] ?
+                    receipt_details[q].dataError1_20[j] : '' %>
+                  </p>
+                  <% } %>
+                </div>
+              </div>
+              <div class="tab-edit">
+                <div class="icon-edit">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20.06"
+                    height="20.059"
+                    viewBox="1251.97 719.97 20.06 20.059"
+                  >
+                    <path
+                      d="m1263.362 723.623 5.015 5.015-10.89 10.892-4.473.493a.94.94 0 0 1-1.038-1.038l.498-4.475 10.888-10.887Zm8.118-.747-2.355-2.355a1.882 1.882 0 0 0-2.661 0l-2.216 2.216 5.016 5.015 2.216-2.215a1.882 1.882 0 0 0 0-2.661Z"
+                      fill="#ffa69f"
+                      fill-rule="evenodd"
+                      data-name="Icon awesome-pen"
+                    />
+                  </svg>
+                </div>
+                <span>コメント</span>
+              </div>
+            </div>
+          </div>
+          <div class="area-error">
+            <div class="disease_name bg-error error-col">
+              <div class="header_column">病名</div>
+              <% for(let k =0;k<(receipt_details[q].Re.length );k++) { %>
+              <div class="button_disable">
+                <button class="btn">
+                  <%= receipt_details[q].Re[k].department_name_1 ?
+                  receipt_details[q].Re[k].department_name_1 : '' %>
+                </button>
+              </div>
+              <% for(let m =0;m<(receipt_details[q].Sy.length );m++) { %>
+              <div class="disease_wrap">
+                <div class="disease_title">
+                  <div class="disease_text">
+                    <span
+                      >(<%= m + 1 %>) <%= receipt_details[q].Sy[m].basic_name ?
+                      receipt_details[q].Sy[m].basic_name : '' %>　</span
+                    >
+                    <span class="outcome_category_name"
+                      ><%= receipt_details[q].Sy[m].outcome_category_name ?
+                      receipt_details[q].Sy[m].outcome_category_name : ''
+                      %></span
+                    >
+                  </div>
+                  <span
+                    ><%= receipt_details[q].Sy[m].treatment_start_date ?
+                    receipt_details[q].Sy[m].treatment_start_date : '' %></span
+                  >
+                </div>
+                <% if(receipt_details[q].Sy[m].memo != '' ){ %>
+                <div class="area_wrap">
+                  <span class="text-danger txt-cus">
+                    ◆<%= receipt_details[q].Sy[m].memo ?
+                    receipt_details[q].Sy[m].memo : '' %>
+                  </span>
+                </div>
+                <% } %>
+              </div>
+              <% } %> <% } %>
+            </div>
+            <div class="summary_column bg-error error-col">
+              <div class="header_column">
+                <span>摘要欄</span>
+                <div class="group-checkbox">
+                  <div class="checkbox-block">
+                    <label class="container-checkbox">
+                      <input type="radio" name="radio" checked />
+                      <span class="checkmark"></span>
+                    </label>
+                    <span class="text-box">すべて</span>
+                  </div>
+                  <div class="checkbox-block">
+                    <label class="container-checkbox">
+                      <input type="radio" name="radio" [value]="false" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <span class="text-box">エラーのみ</span>
+                  </div>
+                </div>
+              </div>
+              <% for(let n= 0;n< (receipt_details[q].Re.length ); n++) { %>
+              <div class="wraper">
+                <div class="button_disable">
+                  <button class="btn">
+                    <%= receipt_details[q].Re[n].department_name_1 ?
+                    receipt_details[q].Re[n].department_name_1 : '' %>
+                  </button>
+                </div>
+                <!-- SI -->
+                <% for(let g= 0;g< (receipt_details[q].Si.length ); g++) { %> <%
+                if(receipt_details[q].Si[g].receipt_int ==
+                receipt_details[q].Re[n].receipt_int ){ %>
+                <div class="wrap_summary">
+                  <span class="pd-r-10 mw-20"
+                    ><%= receipt_details[q].Si[g].clinical_identification ?
+                    receipt_details[q].Si[g].clinical_identification : ''
+                    %></span
+                  >
+                  <span class="heading txt-cus"
+                        ><%= receipt_details[q].Si[g].burden_category ?
+                        receipt_details[q].Si[g].burden_category : '' %> 　<%=
+                        receipt_details[q].Si[g].medical_practice_name ?
+                        receipt_details[q].Si[g].medical_practice_name : ''
+                        %></span>
+                  <span class="count txt-cus"
+                    ><%= receipt_details[q].Si[g].score ?
+                    receipt_details[q].Si[g].score : 0 %> x <%=
+                    receipt_details[q].Si[g].number_of_times ?
+                    receipt_details[q].Si[g].number_of_times : 0 %></span>
+                </div>
+                <% } %> <% } %> 
+                <!-- IY -->
+                <% for(let l= 0;l< (receipt_details[q].Iy.length
+                ); l++) { %> <% if(receipt_details[q].Iy[l].receipt_int ==
+                receipt_details[q].Re[n].receipt_int ){ %>
+                <div class="wrap_summary">
+                  <span class="pd-r-10 mw-20"
+                    ><%= receipt_details[q].Iy[l].clinical_identification ?
+                    receipt_details[q].Iy[l].clinical_identification : ''
+                    %></span
+                  >
+                  <span class="heading txt-cus"
+                        ><%= receipt_details[q].Iy[l].drug_name ?
+                        receipt_details[q].Iy[l].drug_name : '' %></span
+                      >
+                      <span class="count txt-cus"
+                        ><%= receipt_details[q].Iy[l].score ?
+                        receipt_details[q].Iy[l].score : 0 %> x <%=
+                        receipt_details[q].Iy[l].number_of_times ?
+                        receipt_details[q].Iy[l].number_of_times : 0 %></span
+                      >
+                </div>
+                <% } %> <% } %>
+                <!-- TO -->
+                <% for(let o= 0;o< (receipt_details[q].To.length
+                ); o++) { %> <% if(receipt_details[q].To[o].receipt_int ==
+                receipt_details[q].Re[n].receipt_int ){ %>
+                <div class="wrap_summary">
+                  <span class="pd-r-10 mw-20"
+                    ><%= receipt_details[q].To[o].clinical_identification ?
+                    receipt_details[q].To[o].clinical_identification : ''
+                    %></span
+                  >
+                  <span class="heading txt-cus"
+                        ><%= receipt_details[q].To[o].burden_category ?
+                        receipt_details[q].To[o].burden_category : '' %> 　<%=
+                        receipt_details[q].To[o].product_name_standard_size ?
+                        receipt_details[q].To[o].product_name_standard_size : ''
+                        %></span
+                      >
+                      <span class="count txt-cus"
+                        ><%= receipt_details[q].To[o].score ?
+                        receipt_details[q].To[o].score : 0 %> x <%=
+                        receipt_details[q].To[o].number_of_times ?
+                        receipt_details[q].To[o].number_of_times : 0 %></span
+                      >
+                </div>
+                <% } %> <% } %>
+                <!-- CO -->
+                <% for(let u= 0;u< (receipt_details[q].Co.length
+                ); u++) { %> <% if(receipt_details[q].Co[u].receipt_int ==
+                receipt_details[q].Re[n].receipt_int ){ %>
+                <div class="wrap_summary">
+                  <span class="pd-r-10 mw-20"
+                    ><%= receipt_details[q].Co[u].clinical_identification ?
+                    receipt_details[q].Co[u].clinical_identification : ''
+                    %></span
+                  >
+                  <span style="width: 100%;"><%= receipt_details[q].Co[u].character_data ? receipt_details[q].Co[u].character_data : '' %></span>                        
+                </div>
+                <% } %> <% } %>
+              </div>
+              <% } %>
+            </div>
+            <div class="description_error bg-error error-col">
+              <div class="header_column">摘要エラー</div>
+              <div class="area_wrap">
+                <% for(let e =0;e<(receipt_details[q].Error.length );e++) { %>
+
+                  <% if(receipt_details[q].Error[e].error_contents !== ''){ %>
+                    <p class="text-danger txt-cus">
+                      ◆<%= receipt_details[q].Error[e].error_contents ? receipt_details[q].Error[e].error_contents : '' %>
+                    </p>
+                  <% } %>
+                  
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </body>
+</html>

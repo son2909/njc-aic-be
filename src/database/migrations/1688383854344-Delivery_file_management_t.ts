@@ -1,0 +1,88 @@
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class DeliveryFileManagementT1688383854344
+  implements MigrationInterface
+{
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `CREATE TABLE IF NOT EXISTS delivery_file_management_t(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        file_id INT NOT NULL,
+        file_name VARCHAR(100) NOT NULL,
+        mi_id INT,
+        file_type INT NOT NULL,
+        upload_date DATE NOT NULL,
+        account_id INT NOT NULL,
+        total_number INT NOT NULL,
+        sorting_status_flag INT,
+        delivery_status INT NOT NULL,
+        account_id1 INT,
+        allocation_number1 INT,
+        completion_flag1 INT,
+        completion_date1 DATE,
+        account_id2 INT,
+        allocation_number2 INT,
+        completion_flag2 INT,
+        completion_date2 DATE,
+        account_id3 INT,
+        allocation_number3 INT,
+        completion_flag3 INT,
+        completion_date3 DATE,
+        account_id4 INT,
+        allocation_number4 INT,
+        completion_flag4 INT,
+        completion_date4 DATE,
+        account_id5 INT,
+        allocation_number5 INT,
+        completion_flag5 INT,
+        completion_date5 DATE,
+        account_id6 INT,
+        allocation_number6 INT,
+        completion_flag6 INT,
+        completion_date6 DATE,
+        account_id7 INT,
+        allocation_number7 INT,
+        completion_flag7 INT,
+        completion_date7 DATE,
+        account_id8 INT,
+        allocation_number8 INT,
+        completion_flag8 INT,
+        completion_date8 DATE,
+        account_id9 INT,
+        allocation_number9 INT,
+        completion_flag9 INT,
+        completion_date9 DATE,
+        account_id10 INT,
+        allocation_number10 INT,
+        completion_flag10 INT,
+        completion_date10 DATE,
+        account_id11 INT,
+        allocation_number11 INT,
+        completion_flag11 INT,
+        completion_date11 DATE,
+        account_id12 INT,
+        allocation_number12 INT,
+        completion_flag12 INT,
+        completion_date12 DATE,
+        account_id13 INT,
+        allocation_number13 INT,
+        completion_flag13 INT,
+        completion_date13 DATE,
+        account_id14 INT,
+        allocation_number14 INT,
+        completion_flag14 INT,
+        completion_date14 DATE,
+        account_id15 INT,
+        allocation_number15 INT,
+        completion_flag15 INT,
+        completion_date15 DATE,
+        created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_date DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`,
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query('DROP TABLE IF EXISTS delivery_file_management_t;');
+  }
+}

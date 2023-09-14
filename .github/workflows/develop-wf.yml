@@ -1,0 +1,42 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: ['develop']
+  # pull_request:
+  #   branches: ['develop']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: yarn
+      - run: yarn lint
+      - run: yarn build
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install -g yarn
+      - run: yarn
+      - run: NODE_ENV=production AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_KEY}} AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY}} yarn lambda:build
+      - run: NODE_ENV=production AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_KEY}} AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY}} yarn lambda:deploy
+      - run: NODE_ENV=production yarn migrate:up
