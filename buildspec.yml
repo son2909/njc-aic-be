@@ -1,23 +1,18 @@
 version: 0.2
+
 phases:
-  install:
-    on-failure: ABORT
-    commands:
-      - yarn install 
   pre_build:
-    on-failure: ABORT
     commands:
-      - yarn prebuild
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPO_DOMAIN
   build:
-    on-failure: ABORT
     commands:
-      - yarn lambda:build
-  # post_build:
-  #   on-failure: ABORT
-  #   commands:
-  #     - yarn lambda:deploy
-  #     - yarn migrate:create
-  #     - yarn migrate:up
-cache:
-  paths:
-    - node_modules
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_NAME:$IMAGE_TAG      
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
